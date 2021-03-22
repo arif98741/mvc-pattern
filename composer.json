@@ -1,0 +1,19 @@
+{
+    "name": "arif/mvc",
+    "description": "This is mvc library made for handling project.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ariful",
+            "email": "arifsofg@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "app\\": "app/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {}
+}
