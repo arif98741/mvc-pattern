@@ -2,12 +2,22 @@
 
 namespace app\models;
 
-use app\core\libraries\Database;
+use app\core\Model;
+use PDO;
 
-class User extends Database
+class User extends Model
 {
+    protected $table = 'users';
+
     public function getUsers()
     {
-        $this->select();
+        $statement = $this
+            ->select('*')
+            ->get(PDO::FETCH_OBJ);
+        echo '<pre>';
+      //  print_r($statement->fetchAll(PDO::FETCH_OBJ));
+
+        exit;
     }
+
 }

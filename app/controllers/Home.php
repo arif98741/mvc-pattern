@@ -13,11 +13,13 @@ class Home extends Controller
     public function index()
     {
         $user = $this->model('user');
+        $user->getUsers();
+        exit;
+
+
+
         $name = 'Jhon';
         $this->view('home/index', ['user' => $name]);
-        $this->load('form');
-       // $db = $this->load('database');;
-        //$this->helpers('formhelper');
         var_dump(get_included_files());
     }
 

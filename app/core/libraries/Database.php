@@ -4,7 +4,7 @@ namespace app\core\libraries;
 
 use app\core\Controller;
 use PDO;
-use function Composer\Autoload\includeFile;
+use PDOException;
 
 class Database
 {
@@ -12,43 +12,35 @@ class Database
     /**
      * @var
      */
-    public static $instance;
+    private static $instance;
 
-    public function __construct()
-    {
-        $this->getInstance();
-    }
+    public $connection;
 
-    public function getInstance(): PDO
+
+    public static function getInstance()
     {
-        if (self::$instance == null) {
-            self::$instance = self::loadConnection();
+        if (!isset(self::$instance)) {
+            self::$instance = new Database();
+            self::$instance->initConnection();
         }
-
         return self::$instance;
     }
 
     /**
      * Database Connection
      */
-    private static function loadConnection(): PDO
+    private function initConnection()
     {
         try {
             $controller = new Controller();
             $controller->config('database');
-            exit;
-
-            $link = new \PDO("mysql:host=" . HOST . "; dbname=" . DB_NAME, DB_USER, DB_PASS);
+            $link = new PDO("mysql:host=" . HOST . "; dbname=" . DB_NAME, DB_USER, DB_PASS);
             $link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $link->exec("SET CHARACTER SET utf8");
-            return $link;
+            $this->connection = $link;
+
         } catch (PDOException $exc) {
             die("Field to Connect with Database" . $exc->getMessage());
         }
-    }
-
-    protected function select()
-    {
-
     }
 }

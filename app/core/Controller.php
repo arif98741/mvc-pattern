@@ -124,11 +124,14 @@ class Controller
     {
         try {
 
-            if (file_exists('../config/' . $config . '.php')) {
-                require_once '../config/' . $config . '.php';
+            if (file_exists('../app/config/database.php')) {
+
+                require_once '../app/config/database.php';
             } else {
-                throw new MvcException("Requested file '$config' does not exist");
+
+                throw new MvcException("config file '$config' does not exist");
             }
+
         } catch (MvcException $exception) {
 
             echo '<pre>';
