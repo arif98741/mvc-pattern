@@ -1,3 +1,5 @@
 <?php
-require_once '../app/init.php';
-new App();
+require_once '../vendor/autoload.php';
+
+use app\core\Application;
+new Application();

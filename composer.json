@@ -12,8 +12,13 @@
     "autoload": {
         "psr-4": {
             "app\\": "app/"
-        }
+        },
+        "files": [
+
+        ]
     },
     "minimum-stability": "stable",
-    "require": {}
+    "require": {
+      "ext-pdo": "*"
+    }
 }

@@ -1,18 +1,29 @@
 <?php
 
+namespace app\controllers;
+
+
+use app\core\Controller;
 
 class Home extends Controller
 {
     /**
      * Index Method for showing homepage and base
-     * @param $name
      */
-    public function index($name)
+    public function index()
     {
         $user = $this->model('user');
-        $user->name = $name;
+        $name = 'Jhon';
         $this->view('home/index', ['user' => $name]);
-        $connection = $this->load('database');
-        var_dump($connection::instance);
+        $this->load('form');
+       // $db = $this->load('database');;
+        //$this->helpers('formhelper');
+        var_dump(get_included_files());
     }
+
+    public function contact()
+    {
+        echo 'I am from contact';
+    }
+
 }
