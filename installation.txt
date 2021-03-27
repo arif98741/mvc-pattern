@@ -18,7 +18,8 @@ change database settings from project directory app/config/database.php
 change environments settings from project directory app/config/environment.php
 
 step 5:
-run project
-localhost/mvc-pattern
+run the project
+localhost/mvc-pattern/home/index
+
 
 
