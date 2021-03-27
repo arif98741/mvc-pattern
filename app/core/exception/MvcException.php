@@ -28,5 +28,4 @@ class MvcException extends Exception
         ];
     }
 
-
 }

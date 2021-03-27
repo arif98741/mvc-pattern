@@ -33,7 +33,7 @@ class Database
     {
         try {
             $controller = new Controller();
-            $controller->config('database');
+           // $controller->config('database');
             $link = new PDO("mysql:host=" . HOST . "; dbname=" . DB_NAME, DB_USER, DB_PASS);
             $link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $link->exec("SET CHARACTER SET utf8");

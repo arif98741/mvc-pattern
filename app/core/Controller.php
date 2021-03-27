@@ -3,14 +3,18 @@
 namespace app\core;
 
 use app\core\exception\MvcException;
-use app\core\validator\Form;
 
 class Controller
 {
+    protected $params;
+
     /**
-     * Store Database Object
-     * @var
+     * @return mixed
      */
+    public function getParams()
+    {
+        return $this->params;
+    }
 
     /**
      * Model Handler
@@ -93,7 +97,7 @@ class Controller
 
     /**
      * This will load helpers
-     * @param string $library
+     * @param string $helper
      * @return mixed
      */
     public function helpers($helper = '')
@@ -124,9 +128,9 @@ class Controller
     {
         try {
 
-            if (file_exists('../app/config/database.php')) {
+            if (file_exists('../app/config/' . $config . '.php')) {
 
-                require_once '../app/config/database.php';
+                require_once '../app/config/' . $config . '.php';
             } else {
 
                 throw new MvcException("config file '$config' does not exist");

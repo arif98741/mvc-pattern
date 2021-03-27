@@ -6,7 +6,9 @@ namespace app\core;
  * This is main class of mvc that handles and load
  */
 
+use app\core\exception\MvcArgumentException;
 use app\core\exception\MvcException;
+use ArgumentCountError;
 
 class Application
 {
@@ -35,6 +37,9 @@ class Application
     {
 
         $url = $this->parseUrl();
+        $controller = new Controller();
+        $controller->config('environment');
+        $controller->config('database');
 
         try {
             if (class_exists('\\app\controllers\\' . $url[0])) {
@@ -57,7 +62,23 @@ class Application
                         }
                         $this->params = $url ? array_values($url) : [];
 
-                        call_user_func_array([$this->controller, $this->method], $this->params);
+                        try {
+                            call_user_func_array([$this->controller, $this->method], $this->params);
+
+                        } catch (ArgumentCountError $exception) {
+
+                            echo '<pre>';
+                            $bt = debug_print_backtrace();
+                            print_r([
+                                'message' => $exception->getMessage(),
+                                'used_file' => [
+                                    'file' => $bt[0]['file'] . ' at line: ' . $bt[0]['line'],
+                                    'class' => $bt[1]['class'],
+                                    'method' => $bt[1]['function'] . '()',
+//                'called by' => $this->getCaller()
+                                ]
+                            ]);
+                        }
                     } catch (MvcException $exception) {
 
                         echo '<pre>';
@@ -70,6 +91,10 @@ class Application
             } else {
                 throw new MvcException('Class ' . $url[0] . ' Not found');
             }
+
+            $controller = new Controller();
+            $controller->config('environment');
+
         } catch (MvcException $exception) {
 
             echo '<pre>';
@@ -90,6 +115,9 @@ class Application
 
             $url = filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL);
             return explode('/', $url);
+        } else {
+            echo 'no';
+
         }
     }
 }

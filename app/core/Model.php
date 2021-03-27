@@ -22,6 +22,14 @@ class Model
     protected $table;
 
     /**
+     * @param int $limit
+     */
+    public function setLimit(int $limit): void
+    {
+        $limit1 = $limit;
+    }
+
+    /**
      * @var
      */
     protected $result;
@@ -75,10 +83,9 @@ class Model
      * @param string $columns
      * @return array
      */
-    protected function select($columns = '')
+    protected function select($columns = '', $orderby = '', $order = '')
     {
         try {
-
             $query = "select {$columns} from {$this->table}";
             $this->statement = $this->init($query);
             if ($this->statement->execute()) {
@@ -110,21 +117,20 @@ class Model
      */
     protected function get($type = 5)
     {
-        switch ($type) {
-            case 5:
-                $type = PDO::FETCH_OBJ;
-            case 2:
-                $type = PDO::FETCH_ASSOC;
-            default:
-                $type = PDO::FETCH_ASSOC;
-        }
-
         try {
 
             if ($this->statement == null) {
 
                 throw new MvcDBException('statement is null');
             } else {
+                if ($type == 5) {
+                    $type = PDO::FETCH_OBJ;
+                } elseif (2) {
+                    $type = PDO::FETCH_ASSOC;
+                } else {
+
+                    $type = PDO::FETCH_ASSOC;
+                }
                 $this->result = $this->statement->fetchAll($type);
                 $this->total = $this->statement->rowCount();
                 return $this;

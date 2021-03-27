@@ -15,7 +15,7 @@ class User extends Model
             ->select('*')
             ->get(PDO::FETCH_OBJ);
         echo '<pre>';
-      //  print_r($statement->fetchAll(PDO::FETCH_OBJ));
+        print_r(get_included_files());
 
         exit;
     }
