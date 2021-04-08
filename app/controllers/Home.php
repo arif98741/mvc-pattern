@@ -14,7 +14,10 @@ class Home extends Controller
      */
     public function index()
     {
-
+        echo '<pre>';
+        print_r(get_included_files());
+        echo '</pre>';
+        die;
         $this->view('home/index');
     }
 
@@ -26,6 +29,7 @@ class Home extends Controller
         $form = $this->helpers('FormHelper');
         $form->validate($_POST);
     }
+
 
     public function see_report()
     {
