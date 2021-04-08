@@ -4,7 +4,7 @@
 namespace app\core\helpers;
 
 
-use app\core\libraries\Database;
+use app\system\libraries\Database;
 
 class FormHelper
 {

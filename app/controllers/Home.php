@@ -3,8 +3,9 @@
 namespace app\controllers;
 
 
-use app\core\Controller;
-use app\core\libraries\Database;
+use app\system\Controller;
+use app\system\helpers\FormHelper;
+use app\system\libraries\Database;
 
 class Home extends Controller
 {
@@ -13,6 +14,7 @@ class Home extends Controller
      */
     public function index()
     {
+
         $this->view('home/index');
     }
 
@@ -68,5 +70,10 @@ class Home extends Controller
         $data['users'] = $users;
 
         $this->view('home/see_report', $data);
+    }
+
+    public function testFunc()
+    {
+        $form = new FormHelper;
     }
 }

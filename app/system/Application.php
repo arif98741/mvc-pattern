@@ -1,13 +1,13 @@
 <?php
 
-namespace app\core;
+namespace app\system;
 
 /*
  * This is main class of mvc that handles and load
  */
 
-use app\core\exception\MvcArgumentException;
-use app\core\exception\MvcException;
+use app\system\exception\MvcArgumentException;
+use app\system\exception\MvcException;
 use ArgumentCountError;
 
 class Application
@@ -31,7 +31,6 @@ class Application
 
     /**
      * App constructor.
-     * @throws MvcException
      */
     public function __construct()
     {

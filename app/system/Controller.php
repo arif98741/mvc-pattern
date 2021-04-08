@@ -1,8 +1,8 @@
 <?php
 
-namespace app\core;
+namespace app\system;
 
-use app\core\exception\MvcException;
+use app\system\exception\MvcException;
 
 class Controller
 {
