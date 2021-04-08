@@ -7,3 +7,6 @@ This is built using custom coding and will help you to understanding the functio
 
 If you become benefitted using this for learning purpose please thumbs up and support me give start.
 I always believe learning is a broad way for spreading knowledge. 
+
+## installation
+` composer create-project arif98741/mvc-pattern my-project --prefer-dist`
