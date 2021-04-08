@@ -1,10 +1,10 @@
 <?php
 
-namespace app\core\exception;
+namespace app\system\Exception;
 
-use PDOException;
+use Exception;
 
-class MvcDBException extends PDOException
+class MvcException extends Exception
 {
     public function __construct($message = "", $code = 0, Throwable $previous = null)
     {
@@ -13,8 +13,6 @@ class MvcDBException extends PDOException
 
     /**
      * generate Error Exception due to error occur
-     * @param array $file
-     * @return array
      */
     public function showException($file = [])
     {
@@ -29,6 +27,5 @@ class MvcDBException extends PDOException
             ]
         ];
     }
-
 
 }

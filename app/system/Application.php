@@ -6,7 +6,7 @@ namespace app\system;
  * This is main class of mvc that handles and load
  */
 
-use app\system\exception\MvcArgumentException;
+use app\core\Exception\MvcDBException;
 use app\system\exception\MvcException;
 use ArgumentCountError;
 
