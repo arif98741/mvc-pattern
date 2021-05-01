@@ -9,4 +9,4 @@ If you become benefitted using this for learning purpose please thumbs up and su
 I always believe learning is a broad way for spreading knowledge. 
 
 ## installation
-# ` composer create-project arif98741/mvc-pattern myapp --prefer-dist`
+### ` composer create-project arif98741/mvc-pattern myapp --prefer-dist`
