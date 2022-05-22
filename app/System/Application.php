@@ -1,13 +1,13 @@
 <?php
 
-namespace app\system;
+namespace app\System;
 
 /*
  * This is main class of mvc that handles and load
  */
 
-use app\core\Exception\MvcDBException;
-use app\system\exception\MvcException;
+use app\Core\Exception\MvcDBException;
+use app\System\exception\MvcException;
 use ArgumentCountError;
 
 class Application

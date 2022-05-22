@@ -1,11 +1,11 @@
 <?php
 
 
-namespace app\system;
+namespace app\System;
 
 
-use app\system\exception\MvcDBException;
-use app\system\libraries\Database;
+use app\System\exception\MvcDBException;
+use app\System\libraries\Database;
 use PDO;
 use PDOStatement;
 

@@ -1,5 +1,5 @@
 <?php
 require_once '../vendor/autoload.php';
 
-use app\system\Application;
+use app\System\Application;
 new Application();

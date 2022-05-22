@@ -1,8 +1,7 @@
 <?php
+namespace app\Core\Libraries;
 
-namespace app\core\libraries;
-
-use app\system\Controller;
+use app\System\Controller;
 use PDO;
 use PDOException;
 

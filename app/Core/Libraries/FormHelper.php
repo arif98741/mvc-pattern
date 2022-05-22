@@ -1,10 +1,5 @@
 <?php
-
-
-namespace app\core\helpers;
-
-
-use app\system\libraries\Database;
+namespace app\Core\Libraries;
 
 class FormHelper
 {

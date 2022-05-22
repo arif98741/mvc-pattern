@@ -1,8 +1,8 @@
 <?php
 
-namespace app\system;
+namespace app\System;
 
-use app\system\exception\MvcException;
+use app\System\Exception\MvcException;
 
 class Controller
 {
@@ -52,8 +52,8 @@ class Controller
 
         try {
 
-            if (file_exists('../app/views/' . $view . '.php')) {
-                require_once '../app/views/' . $view . '.php';
+            if (file_exists('../app/Views/' . $view . '.php')) {
+                require_once '../app/Views/' . $view . '.php';
             } else {
                 throw new MvcException("Requested view '$view' does not exist");
             }
@@ -77,10 +77,10 @@ class Controller
         try {
             switch ($library) {
                 case 'database':
-                    $library = "\\app\\core\\libraries\\$library";
+                    $library = "\\app\\core\\Libraries\\$library";
                     return new $library();
                 case 'form':
-                    $library = "\\app\\core\\validator\\$library";
+                    $library = "\\app\\core\\Validator\\$library";
                     return new $library();
                 default:
                     throw new MvcException("library '$library' does not exist");
@@ -96,14 +96,14 @@ class Controller
     }
 
     /**
-     * This will load helpers
+     * This will load Helpers
      * @param string $helper
      * @return mixed
      */
     public function helpers($helper = '')
     {
         try {
-            $helper = "\\app\\core\\helpers\\$helper";
+            $helper = "\\app\\core\\Helpers\\$helper";
             if (class_exists($helper)) {
                 return new $helper;
             } else {

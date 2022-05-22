@@ -1,11 +1,11 @@
 <?php
 
-namespace app\controllers;
+namespace app\Controllers;
 
 
-use app\system\Controller;
-use app\system\helpers\FormHelper;
-use app\system\libraries\Database;
+use app\System\Controller;
+use app\System\helpers\FormHelper;
+use app\System\libraries\Database;
 
 class Home extends Controller
 {
