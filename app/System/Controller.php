@@ -3,6 +3,7 @@
 namespace App\System;
 
 use App\System\exception\MvcException;
+use App\System\Helpers\AppHelper;
 
 class Controller
 {
@@ -45,7 +46,7 @@ class Controller
      * @param $view
      * @param array $data
      */
-    public function view($view, $data = [])
+    public function view($view, array $data = [])
     {
         try {
 
@@ -115,28 +116,21 @@ class Controller
 
     /**
      * @param $config
+     * @throws \Exception
      */
     public function config($config)
     {
+        $configurationFilePath = AppHelper::getAppPath() . '/../../../config/' . $config. '.php';
+
         try {
 
-            if (file_exists('../App/config/' . $config . '.php')) {
-
-                require_once '../App/config/' . $config . '.php';
-            } else {
-
-                throw new MvcException("config file '$config' does not exist");
+            if (file_exists($configurationFilePath)) {
+                require_once $configurationFilePath;
             }
 
-        } catch (MvcException $exception) {
-
-            echo '<pre>';
-            print_r($exception->showException([
-                debug_print_backtrace()
-            ]));
-
+        } catch (\Exception $exception) {
+            throw new MvcException($exception->getMessage());
         }
     }
-
 
 }
