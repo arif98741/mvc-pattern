@@ -15,7 +15,7 @@
 <div class="container">
     <p class="text-center mt-5"><strong>MVC Pattern</strong></p>
     <p class="text-center">Version: 0.0.1_alpha</p>
-    <p  class="text-center">Developed BY: Ariful Islam</p>
+    <p class="text-center">Developed BY: Ariful Islam</p>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"

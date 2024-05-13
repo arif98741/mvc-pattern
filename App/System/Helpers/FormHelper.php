@@ -1,10 +1,10 @@
 <?php
 
 
-namespace app\core\helpers;
+namespace App\System\Helpers;
 
 
-use app\system\libraries\Database;
+use App\System\Libraries\Database\Database;
 
 class FormHelper
 {
@@ -19,7 +19,7 @@ class FormHelper
 
     }
 
-    public function validate($data)
+    public fuction validate($data)
     {
         $amount = $data['amount'];
         $buyer = $data['buyer'];

@@ -1,11 +1,9 @@
 <?php
 
+namespace App\System;
 
-namespace app\system;
-
-
-use app\system\exception\MvcDBException;
-use app\system\libraries\Database;
+use App\System\exception\MvcDatabaseConnectionException;
+use App\System\Libraries\Database\Database;
 use PDO;
 use PDOStatement;
 
@@ -20,6 +18,8 @@ class Model
      * @var
      */
     protected $table;
+
+    protected $columns;
 
     /**
      * @param int $limit
@@ -37,26 +37,13 @@ class Model
      * @var false|PDOStatement
      */
     protected $statement;
-    /**
-     * @var int
-     */
-    private $total;
-
-    /**
-     * @return int
-     */
-    public function getTotal(): int
-    {
-        return $this->total;
-    }
 
     /**
      * Model constructor.
      */
     public function __construct()
     {
-        $db = Database::getInstance();
-        $this->connection = $db->connection;
+        $this->connection = Database::getInstance();
     }
 
     protected function insert()
@@ -80,29 +67,37 @@ class Model
 
     /**
      * Select Data from Database
-     * @param string $columns
-     * @return array
+     * @param string|array $columns
+     * @param string $orderby
+     * @param string $order
+     * @return Model
      */
-    protected function select($columns = '', $orderby = '', $order = '')
+    public function select(string|array $columns = '*', string $orderby = '', string $order = '')
     {
-        try {
+        if (is_array($columns)) {
+            $this->columns = implode(',',$columns);
+        }
+        $this->columns = $columns;
+        return $this;
+        /*try {
             $query = "select {$columns} from {$this->table}";
             $this->statement = $this->init($query);
             if ($this->statement->execute()) {
                 return $this;
-            } else {
-
-                throw new \PDOException("library  does not exist");
             }
 
-        } catch (\PDOException $exception) {
-            $exception = new MvcDBException($exception->getMessage());
-            echo '<pre>';
-            print_r($exception->showException([
-                debug_print_backtrace()
-            ]));
+            throw new \PDOException("library  does not exist");
 
-        }
+        } catch (\PDOException $exception) {
+            $exception = new MvcDatabaseConnectionException($exception->getMessage());
+
+        }*/
+    }
+
+    public function table(string $table)
+    {
+        $this->table = $table;
+        return $this;
     }
 
 
@@ -112,16 +107,16 @@ class Model
     }
 
     /**
-     * @param $type
-     * @return array
+     * @return Model
      */
-    protected function get($type = 5)
+    public function get()
     {
         try {
 
+            dd($this);
             if ($this->statement == null) {
 
-                throw new MvcDBException('statement is null');
+                throw new MvcDatabaseConnectionException('someting wrong');
             } else {
                 if ($type == 5) {
                     $type = PDO::FETCH_OBJ;
@@ -136,12 +131,14 @@ class Model
                 return $this;
             }
 
-        } catch (MvcDBException $exception) {
-            echo '<pre>';
-            print_r($exception->showException([
-                debug_print_backtrace()
-            ]));
+        } catch (MvcDatabaseConnectionException $exception) {
+           throw new MvcDatabaseConnectionException($exception->getMessage());
         }
 
+    }
+
+    public function getClass()
+    {
+        return $this;
     }
 }

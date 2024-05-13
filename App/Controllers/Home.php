@@ -1,11 +1,12 @@
 <?php
 
-namespace app\controllers;
+namespace App\Controllers;
 
 
-use app\system\Controller;
-use app\system\helpers\FormHelper;
-use app\system\libraries\Database;
+use App\Models\Book;
+use app\System\Controller;
+use App\System\Helpers\FormHelper;
+use App\System\Libraries\Database\Database;
 
 class Home extends Controller
 {
@@ -26,11 +27,18 @@ class Home extends Controller
         $form->validate($_POST);
     }
 
+    public function data()
+    {
+        $book = new Book;
+        $book->table('users');
+        $book->select(['mobile','pincode']);
+        $book->get();
+    }
+
 
     public function see_report()
     {
 
-        //todo:: query string
         $db = Database::getInstance();
         $connection = $db->connection;
         if (isset($_GET['entry_by']) && isset($_GET['starting_date']) && isset($_GET['ending_date'])) {

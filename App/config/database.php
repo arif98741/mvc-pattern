@@ -1,6 +1,6 @@
 <?php
 
-namespace app\config;
+namespace App\config;
 
 define('HOST', "localhost");
 define('DB_USER', "root");

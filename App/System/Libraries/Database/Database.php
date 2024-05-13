@@ -1,8 +1,8 @@
 <?php
 
-namespace app\core\libraries;
+namespace App\System\Libraries\Database;
 
-use app\system\Controller;
+use App\System\Exception\MvcDatabaseConnectionException;
 use PDO;
 use PDOException;
 
@@ -20,8 +20,8 @@ class Database
     public static function getInstance()
     {
         if (!isset(self::$instance)) {
-            self::$instance = new Database();
-            self::$instance->initConnection();
+            self::$instance = new self();
+            self::$instance->createConnection();
         }
         return self::$instance;
     }
@@ -29,17 +29,15 @@ class Database
     /**
      * Database Connection
      */
-    private function initConnection()
+    private function createConnection()
     {
         try {
-            // $controller->config('database');
-            $link = new PDO("mysql:host=" . HOST . "; dbname=" . DB_NAME, DB_USER, DB_PASS);
+            $link = new \PDO("mysql:host=" . HOST . "; dbname=" . DB_NAME, DB_USER, DB_PASS);
             $link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $link->exec("SET CHARACTER SET utf8");
             $this->connection = $link;
-
         } catch (PDOException $exc) {
-            die("Field to Connect with Database" . $exc->getMessage());
+            throw new MvcDatabaseConnectionException("Failed to connect to database: " . $exc->getMessage());
         }
     }
 }

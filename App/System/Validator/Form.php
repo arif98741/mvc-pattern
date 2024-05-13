@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\core\validator;
+namespace App\System\validator;
 
 
 class Form

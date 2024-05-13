@@ -1,10 +1,11 @@
 <?php
 
-namespace app\core\Exception;
+namespace App\System\Exception;
 
-use PDOException;
+use Exception;
+use Throwable;
 
-class MvcDBException extends PDOException
+class MvcException extends Exception
 {
     public function __construct($message = "", $code = 0, Throwable $previous = null)
     {
@@ -13,11 +14,10 @@ class MvcDBException extends PDOException
 
     /**
      * generate Error Exception due to error occur
-     * @param array $file
-     * @return array
      */
-    public function showException($file = [])
+    public function showException()
     {
+
         $bt = debug_backtrace();
         return [
             'message' => $this->getMessage(),
@@ -25,10 +25,10 @@ class MvcDBException extends PDOException
                 'file' => $bt[0]['file'] . ' at line: ' . $bt[0]['line'],
                 'class' => $bt[1]['class'],
                 'method' => $bt[1]['function'] . '()',
-//                'called by' => $this->getCaller()
-            ]
+                // 'called by' => $this->getCaller()
+            ],
+            'trace' => $this->getTraceAsString(),
         ];
     }
-
 
 }
