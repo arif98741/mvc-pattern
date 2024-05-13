@@ -8,7 +8,9 @@ namespace App\System;
 
 use App\System\Exception\MethodNotFoundException;
 use App\System\exception\MvcException;
+use App\System\Http\Request;
 use Exception;
+use ReflectionMethod;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run as WhoopsRun;
 
@@ -39,8 +41,12 @@ class Application
     private function initialize(): void
     {
         $controller = new Controller();
-        $controller->config('environment');
-        $controller->config('database');
+        try {
+            $controller->config('environment');
+            $controller->config('database');
+        } catch (\Throwable $e) {
+            $this->handleException($e);
+        }
     }
 
     private function handleRequest()
@@ -77,7 +83,7 @@ class Application
         try {
 
             if (!method_exists($this->controller, $method)) {
-                throw new MethodNotFoundException("Method $method not found from " . $this->getClassName());
+                throw new MethodNotFoundException("Method $method not found in controller " . $this->getClassName());
             }
         } catch (Exception $exception) {
             $this->handleException($exception);
@@ -88,7 +94,27 @@ class Application
         $this->params = $url ? array_values($url) : [];
 
         try {
-            call_user_func_array([$this->controller, $this->method], $this->params);
+
+            $reflectionMethod = new ReflectionMethod($this->controller, $this->method);
+            $parameters = $reflectionMethod->getParameters();
+
+            $passRequest = false;
+            if (!empty($parameters)) {
+                $firstParameter = $parameters[0]; // Assuming first parameter
+                $type = $firstParameter->getType();
+                if ($type !== null && !$type->isBuiltin() && $type->getName() === Request::class) {
+                    $passRequest = true;
+                }
+            }
+
+            // If typehint class(App\System\Http\Request) exists in the first param, pass new Request as the second param
+            if ($passRequest) {
+                $reflectionMethod->invoke(new $this->controller, new Request(), ...$this->params);
+            } else {
+                // Otherwise, pass only the params
+                $reflectionMethod->invoke(new $this->controller, ...$this->params);
+            }
+
         } catch (\Throwable  $exception) {
             $this->handleException($exception);
         }

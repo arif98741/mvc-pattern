@@ -46,7 +46,7 @@ class Controller
      * @param $view
      * @param array $data
      */
-    public function view($view, $data = [])
+    public function view($view, array $data = [])
     {
         try {
 
@@ -120,23 +120,17 @@ class Controller
      */
     public function config($config)
     {
-        $configurationFilePath = AppHelper::getAppPath() . '/../../../config/' . $config . '.php';
+        $configurationFilePath = AppHelper::getAppPath() . '/../../../config/' . $config. '.php';
 
         try {
 
             if (file_exists($configurationFilePath)) {
                 require_once $configurationFilePath;
-
-            } else {
-
-                throw new MvcException("config file '$config' does not exist");
             }
 
-        } catch (MvcException $exception) {
-            throw new \Exception($exception);
-
+        } catch (\Exception $exception) {
+            throw new MvcException($exception->getMessage());
         }
     }
-
 
 }

@@ -6,32 +6,29 @@ namespace App\Controllers;
 use App\Models\Book;
 use app\System\Controller;
 use App\System\Helpers\FormHelper;
+use App\System\Http\Request;
 use App\System\Libraries\Database\Database;
 
 class Home extends Controller
 {
     /**
      * Index Method for showing homepage and base
+     * @param Request $request
+     * @param $id
+     * @param string $name
      */
-    public function index()
+    public function index(Request $request, $id, string $name)
     {
+        $hello = 'helo';
         $this->view('home/index');
     }
 
-    /**
-     * Ajax Form Submit
-     */
-    public function ajax_submission()
-    {
-        $form = $this->helpers('FormHelper');
-        $form->validate($_POST);
-    }
 
-    public function data()
+    public function data(Request $request, $id,string $name)
     {
         $book = new Book;
         $book->table('users');
-        $book->select(['mobile','pincode']);
+        $book->select(['mobile', 'pincode']);
         $book->get();
     }
 

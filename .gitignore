@@ -4,3 +4,8 @@
 .idea
 *.log
 *.iml
+*.zip
+*.iml
+*.log
+node_modules
+composer.lock

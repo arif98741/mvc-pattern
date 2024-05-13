@@ -1,6 +1,4 @@
 <?php
 
-namespace App\config;
-
-define('MVC_DEBUG', 1);
-define('APP_URL', 'http://localhost/mvc/');
+const MVC_DEBUG = 1;
+const APP_URL = 'http://localhost/mvc-pattern/';

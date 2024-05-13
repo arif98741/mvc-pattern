@@ -113,7 +113,6 @@ class Model
     {
         try {
 
-            dd($this);
             if ($this->statement == null) {
 
                 throw new MvcDatabaseConnectionException('someting wrong');
