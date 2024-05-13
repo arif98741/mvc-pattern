@@ -35,8 +35,7 @@ class Application
 
     public function __construct()
     {
-        $this->initialize();
-        $this->handleRequest();
+
     }
 
     private function initialize()
@@ -134,5 +133,11 @@ class Application
             'home',
             'index'
         ];
+    }
+
+    public function run()
+    {
+        $this->initialize();
+        $this->handleRequest();
     }
 }

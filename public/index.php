@@ -3,4 +3,5 @@ require_once '../vendor/autoload.php';
 
 use App\System\Application;
 
-new Application();
+$app = new Application();
+$app->run();
