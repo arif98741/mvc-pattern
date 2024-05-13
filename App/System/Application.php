@@ -8,7 +8,6 @@ namespace App\System;
 
 use App\System\Exception\MethodNotFoundException;
 use App\System\exception\MvcException;
-use ArgumentCountError;
 use Exception;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run as WhoopsRun;
@@ -33,12 +32,11 @@ class Application
      */
     private array $params = [];
 
-    public function __construct()
-    {
 
-    }
-
-    private function initialize()
+    /**
+     * @throws Exception
+     */
+    private function initialize(): void
     {
         $controller = new Controller();
         $controller->config('environment');
@@ -135,6 +133,9 @@ class Application
         ];
     }
 
+    /**
+     * @throws Exception
+     */
     public function run()
     {
         $this->initialize();
