@@ -20,15 +20,6 @@ class Model
     protected $table;
 
     protected $columns;
-
-    /**
-     * @param int $limit
-     */
-    public function setLimit(int $limit): void
-    {
-        $limit1 = $limit;
-    }
-
     /**
      * @var
      */
@@ -46,23 +37,12 @@ class Model
         $this->connection = Database::getInstance();
     }
 
-    protected function insert()
-    {
-    }
-
     /**
-     * Prepare Statement
-     * @param $query
-     * @return false|PDOStatement
+     * @param int $limit
      */
-    private function init($query)
+    public function setLimit(int $limit): void
     {
-        return $this->connection->prepare($query);
-    }
-
-    protected function query($sql)
-    {
-        return $sql;
+        $limit1 = $limit;
     }
 
     /**
@@ -75,7 +55,7 @@ class Model
     public function select(string|array $columns = '*', string $orderby = '', string $order = '')
     {
         if (is_array($columns)) {
-            $this->columns = implode(',',$columns);
+            $this->columns = implode(',', $columns);
         }
         $this->columns = $columns;
         return $this;
@@ -98,12 +78,6 @@ class Model
     {
         $this->table = $table;
         return $this;
-    }
-
-
-    protected function delete()
-    {
-
     }
 
     /**
@@ -131,7 +105,7 @@ class Model
             }
 
         } catch (MvcDatabaseConnectionException $exception) {
-           throw new MvcDatabaseConnectionException($exception->getMessage());
+            throw new MvcDatabaseConnectionException($exception->getMessage());
         }
 
     }
@@ -139,5 +113,29 @@ class Model
     public function getClass()
     {
         return $this;
+    }
+
+    protected function insert()
+    {
+    }
+
+    protected function query($sql)
+    {
+        return $sql;
+    }
+
+    protected function delete()
+    {
+
+    }
+
+    /**
+     * Prepare Statement
+     * @param $query
+     * @return false|PDOStatement
+     */
+    private function init($query)
+    {
+        return $this->connection->prepare($query);
     }
 }

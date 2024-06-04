@@ -3,6 +3,7 @@
 namespace App\System;
 
 use App\System\exception\MvcException;
+use App\System\Exception\ViewNotFoundException;
 use App\System\Helpers\AppHelper;
 
 class Controller
@@ -21,6 +22,7 @@ class Controller
      * Model Handler
      * @param $model
      * @return mixed
+     * @throws MvcException
      */
     public function model($model)
     {
@@ -34,10 +36,7 @@ class Controller
 
         } catch (MvcException $exception) {
 
-            echo '<pre>';
-            print_r($exception->showException([
-                debug_print_backtrace()
-            ]));
+            throw new MvcException("Model '$model' does not exist");
         }
     }
 
@@ -45,23 +44,18 @@ class Controller
      * Load View File
      * @param $view
      * @param array $data
+     * @return Controller
+     * @throws ViewNotFoundException
      */
-    public function view($view, array $data = [])
+    public function view($view, $data)
     {
-        try {
 
-            if (file_exists('../App/views/' . $view . '.php')) {
-                require_once '../App/views/' . $view . '.php';
-            } else {
-                throw new MvcException("Requested view '$view' does not exist");
-            }
-        } catch (MvcException $exception) {
-
-            echo '<pre>';
-            print_r($exception->showException([
-                debug_print_backtrace()
-            ]));
-
+        if (file_exists('../App/views/' . $view . '.php')) {
+            extract($data);
+            require_once '../App/views/' . $view . '.php';
+            return $this;
+        } else {
+            throw new ViewNotFoundException("Requested view '$view' does not exist");
         }
     }
 
@@ -92,6 +86,7 @@ class Controller
      * This will load Helpers
      * @param string $helper
      * @return mixed
+     * @throws MvcException
      */
     public function helpers($helper = '')
     {
@@ -105,10 +100,7 @@ class Controller
 
         } catch (MvcException $exception) {
 
-            echo '<pre>';
-            print_r($exception->showException([
-                debug_print_backtrace()
-            ]));
+            throw new MvcException("library '$helper' does not exist");
 
         }
     }
@@ -120,7 +112,7 @@ class Controller
      */
     public function config($config)
     {
-        $configurationFilePath = AppHelper::getAppPath() . '/../../../config/' . $config. '.php';
+        $configurationFilePath = AppHelper::getAppPath() . '/../../../config/' . $config . '.php';
 
         try {
 

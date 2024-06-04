@@ -8,6 +8,6 @@ class AppHelper
 {
     public static function getAppPath()
     {
-        return  realpath(__DIR__);
+        return realpath(__DIR__);
     }
 }
